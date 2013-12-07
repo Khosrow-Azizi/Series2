@@ -19,6 +19,8 @@ public void renderTree(){
  	render(space(t, std(size(30)), std(gap(10))));
 }	
 
+public M3 model = createM3FromEclipseProject(HelloWorldLoc);
+
 public Figure visAst(Declaration ast){
 	switch(ast){
 	    case \compilationUnit(list[Declaration] imports, list[Declaration] types):{
