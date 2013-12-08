@@ -7,7 +7,7 @@ import vis::Figure;
 import vis::Render;
 import vis::KeySym;
 
-public loc HelloWorldLoc = |project://HelloWorld|;
+public loc HelloWorldLoc = |project://HellowWorld|;
 public loc smallsqlLoc = |project://smallsql|; 
 public loc hsqldbLoc = |project://hsqldb|;
 
