@@ -1,4 +1,6 @@
-module firstOverview
+module displayOverview
+import displayDetails;
+
 import vis::Figure;
 import vis::Render;
 import util::Math;
@@ -61,7 +63,9 @@ public Figure makeCircle(percnt, ovShrink, ovColors){
     iprintln (size(coords4));
     ovl4 = overlay([point(x,y) | <x,y> <- coords4]+[ovl4], shapeConnected(true),shapeClosed(true), fillColor(p.colors), 
                                                            onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
-  	                                                         openEditor(|project://smallsql/src/smallsql/database/CreateFile.java|(1904,52,<60,17>,<63,5>));
+                                                           println("Test !!!!!!!!!!!");
+  	                                                  //     openEditor(|project://smallsql/src/smallsql/database/CreateFile.java|(1904,52,<60,17>,<63,5>));
+  	                                                       tmp();
 	                                                         return true;
 	                                                       })
     
@@ -69,6 +73,25 @@ public Figure makeCircle(percnt, ovShrink, ovColors){
     coXY = [];
   }
   return  ellipse(ovl4, shrink(ovShrink), aspectRatio(1), lineColor(ovColors), align(0.5,0.5));;
+
+/*
+ Figure scaledbox(){
+   int n = 100;
+   return vcat([ hcat([ scaleSlider(int() { return 0; },     
+                                    int () { return 200; },  
+                                    int () { return n; },    
+                                    void (int s) { n = s; }, 
+                                    width(200)),
+                        text(str () { return "n: <n>";})
+                      ], left(),  top(), resizable(false)),  
+                 computeFigure(Figure (){ return ellipse(ovl4, shrink(ovShrink), aspectRatio(1), lineColor(ovColors), align(0.5,0.5) , size(n), resizable(false) ) ;  })
+                 
+                          //box(size(n), resizable(false)); })
+               ]);
+}
+
+*/
+
 
 //coords4 = [<0.5,0.5>, <0.5+0.7071*cos(deg2rad(0.0)), 0.5+0.7071*sin(deg2rad(0.0))>,<0.5+0.7071*cos(deg2rad(10.0)), 0.5+0.7071*sin(deg2rad(10.0))>,
 //<0.5+0.7071*cos(deg2rad(20.0)), 0.5+0.7071*sin(deg2rad(20.0))>
@@ -88,10 +111,19 @@ public Figure makeCircle(percnt, ovShrink, ovColors){
 }
 
 
-public void openEditor(location ){
-  public void tt1(){
-    return vcat([box( edit(location)) , shrink(.5), align(1,1) ]);
-  }
-  render(tt1());
+public void checkSlide( ){
+ Figure scaledbox(){
+   int n = 100;
+   return vcat([ hcat([ scaleSlider(int() { return 0; },     
+                                    int () { return 200; },  
+                                    int () { return n; },    
+                                    void (int s) { n = s; }, 
+                                    width(200)),
+                        text(str () { return "n: <n>";})
+                      ], left(),  top(), resizable(false)),  
+                 computeFigure(Figure (){ return box(size(n), resizable(false)); })
+               ]);
+}
+render(scaledbox()); 
 
 }
