@@ -12,7 +12,7 @@ public void renderGraph(){
 	render(overview(0.9, center(), center(), false));
 }
 
-public Figure overview( num vShrink, FProperty vPos, FProperty hPos, bool isVertArranged){
+public Figure overview(num vShrink, FProperty vPos, FProperty hPos, bool isVertArranged){
 	ccGraph = triGraph(ccGraphConfig);
 	dupGraph = triGraph(dupGraphConfig);
 	unitGraph = triGraph(unitGraphConfig);

@@ -1,4 +1,4 @@
-module DuplicatesCalculator
+module series1::DuplicatesCalculator
 
 import lang::java::jdt::m3::AST;
 import lang::java::m3::Core;
@@ -9,8 +9,8 @@ import String;
 import Set;
 import DateTime;
 
-import LinesOfCodeCalculator;
-import SourceCodeFilter;
+import series1::LinesOfCodeCalculator;
+import series1::SourceCodeFilter;
 
 
 public int calculateDuplications(set[loc] projectMethods, int minThreshold){

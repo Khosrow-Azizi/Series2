@@ -1,4 +1,4 @@
-module Ranking
+module series1::Ranking
 
 import List;
 

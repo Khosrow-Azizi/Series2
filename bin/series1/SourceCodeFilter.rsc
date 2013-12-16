@@ -1,4 +1,4 @@
-module SourceCodeFilter
+module series1::SourceCodeFilter
 
 import IO;
 import List;

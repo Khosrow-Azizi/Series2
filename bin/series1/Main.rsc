@@ -1,4 +1,4 @@
-module Main
+module series1::Main
 
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core; 
@@ -9,11 +9,11 @@ import util::Benchmark;
 import List;
 import IO;
 
-import SourceCodeFilter;
-import LinesOfCodeCalculator;
-import DuplicatesCalculator;
-import CyclomaticComplexity;
-import Ranking;
+import series1::SourceCodeFilter;
+import series1::LinesOfCodeCalculator;
+import series1::DuplicatesCalculator;
+import series1::CyclomaticComplexity;
+import series1::Ranking;
 
 //public loc HelloWorldLoc = |project://HelloWorld|;
 public loc smallsqlLoc = |project://smallsql|; 

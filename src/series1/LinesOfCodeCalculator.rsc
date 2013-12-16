@@ -1,10 +1,10 @@
-module LinesOfCodeCalculator
+module series1::LinesOfCodeCalculator
 
 import List;
 import String;
 import lang::java::jdt::m3::Core;
 
-import SourceCodeFilter;
+import series1::SourceCodeFilter;
 
 public int calculateProjectLoc(set[loc] projectFiles){
 	int totalLoc = 0;
