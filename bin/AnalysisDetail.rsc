@@ -18,7 +18,7 @@ public Figure analysisDetail(int totalLines, ccAnalysis(str name), lowRisk(),
 		rows += hcat([box(text(m.name)), box(text(toString(m.complexity))),
 					  box(text(toString(m.lofc)))],std(width(50)));
 	 
-	return(grid([[vcat(rows)]]));
+	return (space(grid([[vcat(rows)]]), std(left()),top()));
 }
 
 public Figure analysisDetail(int totalLines, ccAnalysis(str name), moderateRisk(),
@@ -31,7 +31,7 @@ public Figure analysisDetail(int totalLines, ccAnalysis(str name), moderateRisk(
 		rows += hcat([box(text(m.name)), box(text(toString(m.complexity))),
 					  box(text(toString(m.lofc)))]);
 	 
-	return(space(grid([[vcat(rows)]]), std(left()),top(), std(left()),top()));
+	return(space(grid([[vcat(rows)]]), std(left()),top()));
 }
 
 public Figure analysisDetail(int totalLines, ccAnalysis(str name), highRisk(),
@@ -44,7 +44,7 @@ public Figure analysisDetail(int totalLines, ccAnalysis(str name), highRisk(),
 		rows += hcat([box(text(m.name)), box(text(toString(m.complexity))),
 					  box(text(toString(m.lofc)))]);
 	 
-	return(space(grid([[vcat(rows)]]), std(left()),top(), std(left()),top()));
+	return(space(grid([[vcat(rows)]]), std(left()),top()));
 }
 
 public Figure analysisDetail(int totalLines, ccAnalysis(str name), veryHighRisk(),
@@ -57,5 +57,5 @@ public Figure analysisDetail(int totalLines, ccAnalysis(str name), veryHighRisk(
 		rows += hcat([box(text(m.name)), box(text(toString(m.complexity))),
 					  box(text(toString(m.lofc)))]);
 	 
-	return(space(grid([[vcat(rows)]]), std(left()),top(), std(left()),top()));
+	return(space(grid([[vcat(rows)]]), std(left()),top()));
 }
