@@ -48,11 +48,14 @@ public void run(loc project){
 }
 
 public void processComplexityResult(int totalMethodsLoc, list[tuple[str name, loc location, int complexity, int lofc]] ccAnalysisResult){
-		
+	lowCcRisks.methods =  [];
+	moderateCcRisks.methods =  [];
+	highCcRisks.methods =  [];
+	veryHighCcRisks.methods =  [];
 	lowRisks = [ cc | cc <- ccAnalysisResult, cc.complexity <= 10];
 	moderateRisks = [cc | cc <- ccAnalysisResult, cc.complexity > 10 && cc.complexity <= 20];
 	highRisks = [cc | cc <- ccAnalysisResult, cc.complexity > 20 && cc.complexity <= 50];
-	veryHighRisks =  [cc | cc <- ccAnalysisResult, cc.complexity > 10];
+	veryHighRisks =  [cc | cc <- ccAnalysisResult, cc.complexity > 50];
 	
 	lowCcRisks.methods = lowRisks;// sort(lowRisks);
 	moderateCcRisks.methods = moderateRisks;//sort(moderateRisks);
