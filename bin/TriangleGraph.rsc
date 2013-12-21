@@ -1,15 +1,20 @@
-module TriGraph
+module TriangleGraph
 
 import vis::Figure;
 import vis::Render;
 import vis::KeySym;
 import util::Math;
 
+import Analysis;
+import AnalysisTypes;
 import TriGraphConfig;
-
+import AnalysisDetail;
+//HelloWorldLoc
 public void renderGraph(){	
-	initConfigValues();
+	startAnalysis(HelloWorldLoc);
+	initConfigValues(veryHighCcRisks.ratio, highCcRisks.ratio, moderateCcRisks.ratio,lowCcRisks.ratio);
 	render(overview(0.9, center(), center(), false));
+	//render(box(analysisDetail(totalMethodLines, ccAnalysis("test"), veryHighRisk(), lowCcRisks)));
 }
 
 public Figure overview(num vShrink, FProperty vPos, FProperty hPos, bool isVertArranged){
@@ -21,25 +26,25 @@ public Figure overview(num vShrink, FProperty vPos, FProperty hPos, bool isVertA
 	return hcat([ccGraph,dupGraph,unitGraph], gap(20), vshrink(vShrink), vPos, hPos);
 }
 
-public Figure triGraph(triConfig(Analysis analysis, tuple[num perc, bool isSelected] vhRisk,
-			tuple[num perc, bool isSelected] hRisk, 
-			tuple[num perc, bool isSelected] mRisk, 
-			tuple[num perc, bool isSelected] lRisk, bool isSelected)){	
+public Figure triGraph(triConfig(Analysis analysis, tuple[num ratio, bool isSelected] vhRisk,
+			tuple[num ratio, bool isSelected] hRisk, 
+			tuple[num ratio, bool isSelected] mRisk, 
+			tuple[num ratio, bool isSelected] lRisk, bool isSelected)){	
 			
-    endVeryHigh = vhRisk.perc;
-    veryHighSlice = generateTriSlice(0.0, endVeryHigh, "<round(vhRisk.perc * 100)>%", 
+    endVeryHigh = vhRisk.ratio;
+    veryHighSlice = generateTriSlice(0.0, endVeryHigh, "<round(vhRisk.ratio * 100)>%", 
     	"Red", vhRisk.isSelected, click(analysis, veryHighRisk(), "Very high risk"));	
 	
-	endHigh = endVeryHigh + hRisk.perc;
-	highSlice = generateTriSlice(endVeryHigh, endHigh, "<round(hRisk.perc * 100)>%", 
+	endHigh = endVeryHigh + hRisk.ratio;
+	highSlice = generateTriSlice(endVeryHigh, endHigh, "<round(hRisk.ratio * 100)>%", 
 		"Orange", hRisk.isSelected, click(analysis, highRisk(), "High risk"));
 	
-	endMod = endHigh + mRisk.perc;			
-	modSlice = generateTriSlice(endHigh, endMod, "<round(mRisk.perc * 100)>%", 
+	endMod = endHigh + mRisk.ratio;			
+	modSlice = generateTriSlice(endHigh, endMod, "<round(mRisk.ratio * 100)>%", 
 		"Yellow", mRisk.isSelected, click(analysis, moderateRisk(), "Moderate risk"));
 					
-	endLow = endMod + lRisk.perc;
-	lowSlice = generateTriSlice(endMod, endLow, "<round(lRisk.perc * 100)>%", 
+	endLow = endMod + lRisk.ratio;
+	lowSlice = generateTriSlice(endMod, endLow, "<round(lRisk.ratio * 100)>%", 
 	"Green", lRisk.isSelected, click(analysis, lowRisk(), "Low risk"));
 	ht = isSelected ? 200 : 80;
 	return vcat([overlay([veryHighSlice, highSlice, modSlice, lowSlice], width(270), height(ht), resizable(false)), 
@@ -65,7 +70,7 @@ public FProperty click(ccAnalysis(str name), veryHighRisk(), str txt){
  		resetSelectionValues();
  		ccGraphConfig.veryHighRisk.isSelected = true;
  		ccGraphConfig.graphIsSelected = true;
-	 	render(overview(0.9, top(), left(), true));
+	 	render(hcat([overview(0.9, top(), left(), true), box(analysisDetail(totalMethodLines, ccAnalysis("test"), veryHighRisk(), veryHighCcRisks))], gap(5)));
 	  	return true;});
 }
 
@@ -74,7 +79,7 @@ public FProperty click(ccAnalysis(str name), highRisk(), str txt){
 	 	resetSelectionValues();
  		ccGraphConfig.highRisk.isSelected = true;
  		ccGraphConfig.graphIsSelected = true;
-	 	render(overview(0.9, top(), left(), true));
+	 	render(hcat([overview(0.9, top(), left(), true), box(analysisDetail(totalMethodLines, ccAnalysis("test"), highRisk(), highCcRisks))], gap(5)));
 	  	return true;});
 }
 
@@ -83,7 +88,7 @@ public FProperty click(ccAnalysis(str name), moderateRisk(), str txt){
 	 	resetSelectionValues();
  		ccGraphConfig.modRisk.isSelected = true;
  		ccGraphConfig.graphIsSelected = true;
-	 	render(overview(0.9, top(), left(), true));
+	 	render(hcat([overview(0.9, top(), left(), true), box(analysisDetail(totalMethodLines, ccAnalysis("test"), moderateRisk(), moderateCcRisks))], gap(5)));
 	  	return true;});
 }
 
@@ -92,7 +97,7 @@ public FProperty click(ccAnalysis(str name), lowRisk(), str txt){
 	 	resetSelectionValues();
  		ccGraphConfig.lowRisk.isSelected = true;
  		ccGraphConfig.graphIsSelected = true;
-	 	render(overview(0.9, top(), left(), true));
+	 	render(hcat([overview(0.9, top(), left(), true), box(analysisDetail(totalMethodLines, ccAnalysis("test"), lowRisk(), lowCcRisks),top())]));
 	  	return true;});
 }
 
