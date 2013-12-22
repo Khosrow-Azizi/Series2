@@ -8,17 +8,23 @@ import util::Math;
 
 import AnalysisTypes;
 
+import IO;
+import util::Editors;
+
 public Figure analysisDetail(int totalLines, ccAnalysis(str name), lowRisk(),
 	tuple[list[tuple[str name, loc location, int complexity, int lofc]] methods, int totalLoc, real ratio] risks){
 	rows = [];
-	rows += hcat([box(text("Method Name", fontBold(true))), 
-				  box(text("Complexity index", fontBold(true))),
-				  box(text("Lines", fontBold(true)))], std(width(50)));
-	for(m <- risks.methods)
-		rows += hcat([box(text(m.name)), box(text(toString(m.complexity))),
-					  box(text(toString(m.lofc)))],std(width(50)));
-	 
-	return (space(grid([[vcat(rows)]]), std(left()),top()));
+	list[Figure] treeItems = [];
+	for(m <- risks.methods){
+	  loc locFile = m.location;
+	  treeItems += [box(text(m.name), area(m.lofc), fillColor("green"),
+		                onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
+  	                      edit(locFile);
+                          return true;
+	                    })
+		           )];
+	 }
+	return treemap(treeItems);
 }
 
 public Figure analysisDetail(int totalLines, ccAnalysis(str name), moderateRisk(),
@@ -59,3 +65,4 @@ public Figure analysisDetail(int totalLines, ccAnalysis(str name), veryHighRisk(
 	 
 	return(space(grid([[vcat(rows)]]), std(left()),top()));
 }
+

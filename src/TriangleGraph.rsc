@@ -11,7 +11,7 @@ import TriGraphConfig;
 import AnalysisDetail;
 //HelloWorldLoc
 public void renderGraph(){	
-	startAnalysis(HelloWorldLoc);
+	startAnalysis(HellowWorldLoc);
 	initConfigValues(veryHighCcRisks.ratio, highCcRisks.ratio, moderateCcRisks.ratio,lowCcRisks.ratio);
 	render(overview(0.9, center(), center(), false));
 	//render(box(analysisDetail(totalMethodLines, ccAnalysis("test"), veryHighRisk(), lowCcRisks)));
@@ -97,7 +97,7 @@ public FProperty click(ccAnalysis(str name), lowRisk(), str txt){
 	 	resetSelectionValues();
  		ccGraphConfig.lowRisk.isSelected = true;
  		ccGraphConfig.graphIsSelected = true;
-	 	render(hcat([overview(0.9, top(), left(), true), box(analysisDetail(totalMethodLines, ccAnalysis("test"), lowRisk(), lowCcRisks),top())]));
+	 	render(hcat([overview(  0.9, top(), left(), true  ), box(analysisDetail( totalMethodLines, ccAnalysis("test"), lowRisk(), lowCcRisks ),top())]));
 	  	return true;});
 }
 

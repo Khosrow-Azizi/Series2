@@ -14,7 +14,7 @@ import series1::LinesOfCodeCalculator;
 import series1::DuplicatesCalculator;
 import series1::CyclomaticComplexity;
 
-public loc HelloWorldLoc = |project://HelloWorld|;
+public loc HellowWorldLoc = |project://HellowWorld|;
 public loc smallsqlLoc = |project://smallsql|; 
 public loc hsqldbLoc = |project://hsqldb231|;
 
