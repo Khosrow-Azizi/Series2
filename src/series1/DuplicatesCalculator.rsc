@@ -12,8 +12,15 @@ import DateTime;
 import series1::LinesOfCodeCalculator;
 import series1::SourceCodeFilter;
 
+public map[str searchPattern, set[loc] dupLOCs] allFoundDuplicates = ();
+set[loc] emptyList = {};
+
+public map[str searchPattern, set[loc] dupLOCs] getAllDups() {
+	return allFoundDuplicates;
+}
 
 public int calculateDuplications(set[loc] projectMethods, int minThreshold){
+	allFoundDuplicates = ();
 	set[tuple[list[str] code, list[loc] locations]] foundDuplicates = {};
 	list[tuple[loc location, list[str] sourceCode]] filterdMethods = [<m, getCleanCode(m)> | m <- projectMethods, size(getCleanCode(m)) > minThreshold];//methods(model)
 	list[loc] dupLocations = [];
@@ -37,7 +44,8 @@ public int calculateDuplications(set[loc] projectMethods, int minThreshold){
      			searchPatternEnd += 1; 
 			}
 			else{			
-				foundDuplicates += 	<searchPattern, dupLocations>;				
+				foundDuplicates += 	<searchPattern, dupLocations>;
+				allFoundDuplicates[intercalate("\n", searchPattern)] ? emptyList +=  {d | d <- dupLocations};				
 				break;
 			}
     	}      				
@@ -47,15 +55,19 @@ public int calculateDuplications(set[loc] projectMethods, int minThreshold){
 	for(dup <- foundDuplicates)	{
 	 	count += (size(dup.code) * size(dup.locations));
 	 }
+	 iprintln(foundDuplicates.locations);
+	 println("--------------------------------------------");
+	 iprintln(allFoundDuplicates.dupLOCs);
+	 println(count);
 	 return count;
 }
 
 
 public list[loc] getDups(list[str] searchPattern,loc searchPatternLoc, list[tuple[loc location, list[str] sourceCode]] searchLocations, int searchBeginIdx, int threshold){
-	list[loc] duplocations = [];   
+	list[loc] duplocations = [];
     int matchFromIndex;
     int matchEndIndex;
-    for(l <- searchLocations){      	
+    for(l <- searchLocations){
     	if(l.location == searchPatternLoc){
 			matchFromIndex = searchBeginIdx + threshold;  
     	    matchEndIndex = matchFromIndex  + threshold;
@@ -66,12 +78,20 @@ public list[loc] getDups(list[str] searchPattern,loc searchPatternLoc, list[tupl
 		}
 		while(true){
 			if(matchEndIndex > size(l.sourceCode))
-				break;	
-			searchBlock = l.sourceCode[matchFromIndex..matchEndIndex];								
-			if(searchPattern == searchBlock)
-				duplocations += l.location;	 
+				break;
+			searchBlock = l.sourceCode[matchFromIndex..matchEndIndex];							
+			if(searchPattern == searchBlock) {
+				loc f = l.location;
+				f.offset = l.location.offset + 1 + size(intercalate("\n", l.sourceCode[0..matchFromIndex]));
+				f.length = size(intercalate("\n", searchBlock));
+				f.begin.line = l.location.begin.line + matchFromIndex;
+				f.end.line = f.begin.line + threshold - 1;
+				f.begin.column = l.location.begin.column;
+				f.end.column = l.location.end.column;
+				duplocations += f;
+			}
       		matchFromIndex += 1;
-      		matchEndIndex += 1;   		
+      		matchEndIndex += 1;  		
 		}		
 	}
 	return duplocations;

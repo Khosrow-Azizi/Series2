@@ -53,7 +53,7 @@ public void reportProjectMetrics(loc project){
 //	println("");
 	
 	// unit size
-//	generateUnitSizeReport(totalMethodsLoc, ccAnalysisResult);
+//	generateUnitSizeReport(totalMethodsLoc, ccAnalysisResult);  prajan : no need to call as the data is already there during
 	
 //	println("");
 //	println("");
