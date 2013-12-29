@@ -19,21 +19,25 @@ public GraphConfig dupGraphConfig =
 public GraphConfig unitGraphConfig = 
 	triConfig(unitAnalysis("Unit-size analysis"),<0.0, false>,<0.0, false>, <0.0, false>,<0.0, false>, true);
 	
-public void initConfigValues(num a, num b, num c, num d){
+public void initCCConfigValues(num a, num b, num c, num d){
 	ccGraphConfig.veryHighRisk.ratio = a;
 	ccGraphConfig.highRisk.ratio = b;
 	ccGraphConfig.modRisk.ratio = c;
 	ccGraphConfig.lowRisk.ratio = d;
-	
-	dupGraphConfig.veryHighRisk.ratio = 0.10;
-	dupGraphConfig.highRisk.ratio = 0.50;
-	dupGraphConfig.modRisk.ratio = 0.20;
-	dupGraphConfig.lowRisk.ratio = 0.20;
-	
-	unitGraphConfig.veryHighRisk.ratio = 0.10;
-	unitGraphConfig.highRisk.ratio = 0.50;
-	unitGraphConfig.modRisk.ratio = 0.20;
-	unitGraphConfig.lowRisk.ratio = 0.20;
+}
+
+public void initDupConfigValues(num a, num b) {
+	dupGraphConfig.veryHighRisk.ratio = 0;
+	dupGraphConfig.highRisk.ratio = 0;
+	dupGraphConfig.modRisk.ratio = a;
+	dupGraphConfig.lowRisk.ratio = b;
+}
+
+public void initUzConfigValues(num a, num b, num c, num d) {	
+	unitGraphConfig.veryHighRisk.ratio = a;
+	unitGraphConfig.highRisk.ratio = b;
+	unitGraphConfig.modRisk.ratio = c;
+	unitGraphConfig.lowRisk.ratio = d;
 }
 
 public void resetSelectionValues(){

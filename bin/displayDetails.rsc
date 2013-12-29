@@ -49,14 +49,14 @@ public void dispDetails(ccAnalysisResult){
 	  i += box( text(s), fillColor("lightgreen"), onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
   	                                                openEditor(loc1);
 	                                                return true;
-	                                              }),
+	                                              })
 	           // project(text(s),"vscreen"),
-	            shrink(0.1)
+	            //shrink(0.1),
 	          );
 	}
 	//sc = vscreen(vcat(i),id("vscreen"));
-	render(pack(i, std(gap(10)) ));   // treemap
-	//render(vcat(i)); - gives grid constrained
+	//  render(pack(i, std(gap(10)) ));   // treemap
+	  render(vcat(i)); // - gives grid constrained
 //	render(grid(i));
 //	render(box(text("Rascal", fontSize(20), fontColor("blue")), grow(2.0)));
 }

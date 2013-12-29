@@ -21,7 +21,7 @@ public list[Figure] analysisMain(int totalLines, customDataType risks){
 	    continue;
 	  treeItems += [box(area(m.lofc), fillColor(getColor(m.complexity)) ,
 		                onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
-  	                      println(locFile);
+  	                      edit(locFile);//println(locFile);
                           return true;
 	                    }),
 	                    popup("Name : " + m.name + "\n" + "Complexity : " + toString(m.complexity) + "\n" + "LOC : " + toString(m.lofc)) 
