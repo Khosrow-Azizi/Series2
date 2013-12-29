@@ -33,6 +33,8 @@ public customDataType lowUzRisks = <[],0,0.0>;
 public dupDataType duplicate = <(),0.0>;
 public dupDataType nonDuplicate = <(),0.0>;
 
+public dupAnalysisDataType duplicateRisks = <{}, 0.0>;
+
 public void startAnalysis(loc project){
 	println("Analysis started. Please wait..");
 	int totalExecTime = cpuTime(void() {run(project);});
@@ -64,7 +66,7 @@ public void run(loc project){
 	list[tuple[str name, loc location, int complexity, int lofc]] ccAnalysisResult = getComplexityPerUnit(ast, true);
 	processComplexityResult(totalMethodLines, ccAnalysisResult);
 	processUnitSizeResult(totalMethodLines, ccAnalysisResult);
-	countDupsLines = calculateDuplications({s | m <- srcMethods, <m, s> <- model@declarations}, 6);
+	countDupsLines = calculateDuplications({s | m <- srcMethods, <m, s> <- model@declarations}, 6); //??
 //	iprintln(getAllDups());
 	processDupResult(totalMethodLines,countDupsLines );
 }
@@ -135,6 +137,8 @@ public void processDupResult(int totalMethodsLoc, int dupAnalysisResult){
 	duplicate.ratio = toReal(dupAnalysisResult) / totalMethodsLoc;
 	nonDuplicate.ratio = toReal(1 - duplicate.ratio);
 	duplicate.duplicates = getAllDups();
+	
+	duplicateRisks = <foundDuplicates,toReal(dupAnalysisResult) / totalMethodsLoc> ;
 }
 
 

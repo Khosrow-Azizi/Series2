@@ -13,8 +13,8 @@ import AnalysisDetailGrid;
 import IO;
 
 public void renderGraph(){	
-	startAnalysis(HelloWorldLoc);
-	//startAnalysis(smallsqlLoc);
+	//startAnalysis(HelloWorldLoc);
+	startAnalysis(smallsqlLoc);
 	initCCConfigValues(veryHighCcRisks.ratio, highCcRisks.ratio, moderateCcRisks.ratio,lowCcRisks.ratio);
 	initUzConfigValues(veryHighUzRisks.ratio, highUzRisks.ratio, moderateUzRisks.ratio,lowUzRisks.ratio);
 	initDupConfigValues(duplicate.ratio, nonDuplicate.ratio);
@@ -140,7 +140,7 @@ public FProperty click(dupAnalysis(str name), moderateRisk(), str txt){
 	 	resetSelectionValues();
  		dupGraphConfig.modRisk.isSelected = true;
  		dupGraphConfig.graphIsSelected = true;
- 		render(hcat([overview(  0.9, top(), left(), true  ), box(analysisDupDetail(totalMethodLines, duplicate ))   ], gap(5)));
+ 		render(hcat([overview(  0.9, top(), left(), true  ), box(dupAnalysisDetail(totalMethodLines, duplicateRisks, true ))   ], gap(5)));
 	  	return true;});
 }
 

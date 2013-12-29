@@ -15,13 +15,15 @@ import series1::SourceCodeFilter;
 public map[str searchPattern, set[loc] dupLOCs] allFoundDuplicates = ();
 set[loc] emptyList = {};
 
+public set[tuple[list[str] code, list[loc] locations]] foundDuplicates = {};
+
 public map[str searchPattern, set[loc] dupLOCs] getAllDups() {
 	return allFoundDuplicates;
 }
 
 public int calculateDuplications(set[loc] projectMethods, int minThreshold){
 	allFoundDuplicates = ();
-	set[tuple[list[str] code, list[loc] locations]] foundDuplicates = {};
+	//set[tuple[list[str] code, list[loc] locations]] foundDuplicates = {};
 	list[tuple[loc location, list[str] sourceCode]] filterdMethods = [<m, getCleanCode(m)> | m <- projectMethods, size(getCleanCode(m)) > minThreshold];//methods(model)
 	list[loc] dupLocations = [];
 	
