@@ -9,9 +9,9 @@ import Analysis;
 import AnalysisTypes;
 import TriGraphConfig;
 import AnalysisDetail; 
-import ComplexityDetail;
+import AnalysisDetailGrid;
 import IO;
-//HelloWorldLoc
+
 public void renderGraph(){	
 	startAnalysis(HelloWorldLoc);
 	//startAnalysis(smallsqlLoc);
@@ -158,7 +158,7 @@ public FProperty click(unitAnalysis(str name), veryHighRisk(), str txt){
  		resetSelectionValues();
  		unitGraphConfig.veryHighRisk.isSelected = true;
  		unitGraphConfig.graphIsSelected = true;
-	 	render(hcat([overview(  0.9, top(), left(), true  ), box(analysisuzDetail(totalMethodLines, veryHighUzRisks ))   ], gap(5)));
+	 	render(hcat([overview(  0.9, top(), left(), true  ), box(unitAnalysisDetail(totalMethodLines, veryHighUzRisks, true))], gap(5)));
 	  	return true;});
 }
 
@@ -167,7 +167,7 @@ public FProperty click(unitAnalysis(str name), highRisk(), str txt){
 	 	resetSelectionValues();
  		unitGraphConfig.highRisk.isSelected = true;
  		unitGraphConfig.graphIsSelected = true;
-	    render(hcat([overview(  0.9, top(), left(), true  ), box(analysisuzDetail(totalMethodLines, highUzRisks ))   ], gap(5)));
+	    render(hcat([overview(  0.9, top(), left(), true  ), box(unitAnalysisDetail(totalMethodLines, highUzRisks, true))], gap(5)));
 	 
 	  	return true;});
 }
@@ -177,7 +177,7 @@ public FProperty click(unitAnalysis(str name), moderateRisk(), str txt){
 	 	resetSelectionValues();
  		unitGraphConfig.modRisk.isSelected = true;
  		unitGraphConfig.graphIsSelected = true;
-	 	render(hcat([overview(  0.9, top(), left(), true  ), box(analysisuzDetail(totalMethodLines, moderateUzRisks ))   ], gap(5)));
+	 	render(hcat([overview(  0.9, top(), left(), true  ), box(unitAnalysisDetail(totalMethodLines, moderateUzRisks, true ))], gap(5)));
 	  	return true;});
 }
 
@@ -186,7 +186,7 @@ public FProperty click(unitAnalysis(str name), lowRisk(), str txt){
 	 	resetSelectionValues();
  		unitGraphConfig.lowRisk.isSelected = true;
  		unitGraphConfig.graphIsSelected = true;
-	   render(hcat([overview(  0.9, top(), left(), true  ), box(analysisuzDetail(totalMethodLines, lowUzRisks ))   ], gap(5)));
+	   render(hcat([overview(  0.9, top(), left(), true  ), box(unitAnalysisDetail(totalMethodLines, lowUzRisks, true))], gap(5)));
 	  	return true;});
 }
 
