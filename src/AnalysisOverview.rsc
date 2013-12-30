@@ -13,8 +13,8 @@ import AnalysisDetailGrid;
 import IO;
 
 public void renderGraph(){	
-	//startAnalysis(HelloWorldLoc);
-	startAnalysis(smallsqlLoc);
+	startAnalysis(HelloWorldLoc);
+	//startAnalysis(smallsqlLoc);
 	initCCConfigValues(veryHighCcRisks.ratio, highCcRisks.ratio, moderateCcRisks.ratio,lowCcRisks.ratio);
 	initUzConfigValues(veryHighUzRisks.ratio, highUzRisks.ratio, moderateUzRisks.ratio,lowUzRisks.ratio);
 	initDupConfigValues(duplicate.ratio, nonDuplicate.ratio);
@@ -27,15 +27,26 @@ public Figure overview(num vShrink, FProperty vPos, FProperty hPos, bool isVertA
 	unitGraph = triGraph(unitGraphConfig);
     dupGraph = triGraph(dupGraphConfig);	
 	if(isVertArranged){
-		Figures leftSide = [button("Main menu", void() { render(overview(0.9, center(), center(), false));  }, size(5), resizable(false) )];  
+		Figures leftSide = [box(text(" Main Overview "), shadow(true), mainclick(), fillColor("lightGray"), left(), size(25), resizable(false) )];  
 		leftSide += vcat([ccGraph,dupGraph,unitGraph], gap(0), vshrink(vShrink), vPos, hPos); 
-		return vcat(leftSide);
+		return box(vcat(leftSide), resizable(false));
 	}
 		
-	Figures result = [hcat([ccGraph,dupGraph,unitGraph], gap(0), vshrink(0.35)) ]; 
-	result += [button("System treemap", void() { render(vcat([button("Back", void() { render(overview(0.9, center(), center(), false)); }, size(10), resizable(false)), getTreeMap()])); }, width(100), height(10), resizable(false)) ];
+	mainOverview = hcat([ccGraph,dupGraph,unitGraph], gap(0), vshrink(0.35)); 
+	systemTree = box(text(" System tree map "), top(), shadow(true), systemTreeclick(), fillColor("lightGray"), left(), size(25), resizable(false));
+	legendRows = [];
+	legendRows += text("Legend", fontBold(true));
+	legendRows += hcat([box(fillColor("red"), resizable(false), vsize(10),  hsize(20),lineColor("red")),
+					   box(text("   Very high risk", fontItalic(true), left()), lineColor("white"))]);
+	legendRows += hcat([box(fillColor("orange"), resizable(false), vsize(10),  hsize(20),lineColor("orange")),
+					   box(text("   High risk", fontItalic(true), left()), lineColor("white"))]);
+	legendRows += hcat([box(fillColor("yellow"), resizable(false), vsize(10),  hsize(20),lineColor("yellow")),
+					   box(text("   Moderate risk", fontItalic(true), left()), lineColor("white"))]);
+	legendRows += hcat([box(fillColor("lightGreen"), resizable(false), vsize(10),  hsize(20),lineColor("lightGreen")),
+					   box(text("   Low risk", fontItalic(true), left()), lineColor("white"))]);
+	legend = grid([[vcat(legendRows)]], right(), top(), resizable(false), hsize(200), std(left()));
 	
-	return vcat(result, gap(5));				
+	return vcat([mainOverview, overlay([systemTree,legend])], gap(100));				
 	
 }
 
@@ -122,7 +133,7 @@ public FProperty click(dupAnalysis(str name), veryHighRisk(), str txt){
  		resetSelectionValues();
  		dupGraphConfig.veryHighRisk.isSelected = true;
  		dupGraphConfig.graphIsSelected = true;
-	 	render(overview(0.9, top(), left(), true));
+ 		render(hcat([overview(  0.9, top(), left(), true  ), box(dupAnalysisDetail(totalMethodLines, duplicateRisks, true ))], gap(5)));
 	  	return true;});
 }
 
@@ -140,7 +151,7 @@ public FProperty click(dupAnalysis(str name), moderateRisk(), str txt){
 	 	resetSelectionValues();
  		dupGraphConfig.modRisk.isSelected = true;
  		dupGraphConfig.graphIsSelected = true;
- 		render(hcat([overview(  0.9, top(), left(), true  ), box(dupAnalysisDetail(totalMethodLines, duplicateRisks, true ))   ], gap(5)));
+ 		render(overview(0.9, top(), left(), true));
 	  	return true;});
 }
 
@@ -190,7 +201,21 @@ public FProperty click(unitAnalysis(str name), lowRisk(), str txt){
 	  	return true;});
 }
 
+public FProperty mainclick(){
+	return onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers){
+		resetSelectionValues();
+		ccGraphConfig.graphIsSelected = true;
+		unitGraphConfig.graphIsSelected = true;
+		dupGraphConfig.graphIsSelected = true;
+	 	render(overview(0.9, center(), center(), false));
+	  	return true;});
+}
 
+public FProperty systemTreeclick(){
+	return onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers){
+	 	render(vcat([button("Back", void() { render(overview(0.9, center(), center(), false)); }, size(10), resizable(false)), getTreeMap()]));
+	  	return true;});
+}
 
 
 /**********************************************************************************************/

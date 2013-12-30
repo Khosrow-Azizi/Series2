@@ -27,9 +27,9 @@ public void initCCConfigValues(num a, num b, num c, num d){
 }
 
 public void initDupConfigValues(num a, num b) {
-	dupGraphConfig.veryHighRisk.ratio = 0;
+	dupGraphConfig.veryHighRisk.ratio = a;
 	dupGraphConfig.highRisk.ratio = 0;
-	dupGraphConfig.modRisk.ratio = a;
+	dupGraphConfig.modRisk.ratio = 0;
 	dupGraphConfig.lowRisk.ratio = b;
 }
 
