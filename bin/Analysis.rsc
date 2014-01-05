@@ -12,8 +12,9 @@ import IO;
 
 import series1::SourceCodeFilter;
 import series1::LinesOfCodeCalculator;
-import series1::DuplicatesCalculator;
+//import series1::DuplicatesCalculator;
 import series1::CyclomaticComplexity;
+import series1::DuplicationAnalyser;
 
 public loc HelloWorldLoc = |project://HelloWorld|;
 public loc smallsqlLoc = |project://smallsql|; 
@@ -136,28 +137,7 @@ public void processDupResult(int totalMethodsLoc, int dupAnalysisResult){
 	
 	duplicate.ratio = toReal(dupAnalysisResult) / totalMethodsLoc;
 	nonDuplicate.ratio = toReal(1 - duplicate.ratio);
-	duplicate.duplicates = getAllDups();
+	//duplicate.duplicates = getAllDups();
 	
 	duplicateRisks = <foundDuplicates,toReal(dupAnalysisResult) / totalMethodsLoc> ;
 }
-
-
-
-public list[tuple[str name, loc location, int complexity, int lofc]] sort(list[tuple[str name, loc location, int complexity, int lofc]] methods){
-	if(isEmpty(methods))
-		return [];
-	return add(tail(methods), head(methods));
-}
-
-public list[tuple[str name, loc location, int complexity, int lofc]] add(list[tuple[str name, loc location, int complexity, int lofc]] orderedList, 
-	tuple[str name, loc location, int complexity, int lofc] method){
-	if(isEmpty(orderedList))
-		return [method];		
-	if(head(orderedList).complexity > method.complexity)
-			return head(orderedList) + add(tail(orderedList), method);
-	return [method] + orderedList;		
-}
-
-
-
-

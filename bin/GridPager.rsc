@@ -21,7 +21,7 @@ private tuple[int begin, int end] selectedPage = <0,0>;
 private tuple[int begin, int end] pageBoundary = <0,0>;
 
 public alias ccUnitPager = tuple[Figure control, list[tuple[str name, loc location, int complexity, int lofc]] dataCollection];
-public alias dupPager =  tuple[Figure control, set[tuple[list[str] code, list[loc] locations]] dataCollection];
+public alias dupPager =  tuple[Figure control, set[tuple[list[str] code, set[tuple[loc location, int occurence]] locations]] dataCollection];
 
 public ccUnitPager gridPager(Analysis analysisType, customDataType analysisData, int maxPageSize, bool initialize){
 	dataCollection = analysisData;

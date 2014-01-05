@@ -103,6 +103,7 @@ public Figure unitGrid(ccUnitPager pager){
 }
 
 public Figure dupGrid(dupPager pager){	
+	//return box();
 	rows = [];	
 	Figure dupCodeGrid;
 	Figure locationsGrid;
@@ -112,12 +113,12 @@ public Figure dupGrid(dupPager pager){
 			hcat([box(text(" Locations", fontBold(true))),
 				  box(text(" Occurrence", fontBold(true)), hresizable(false), width(100))]);
 		for(dupLoc <- dup.locations){
-			locationRows += hcat([box(text(" <dupLoc.file>") , popup(dupLoc), openFile(dupLoc)), 
-					  box(text(" t.b.d."),hresizable(false), width(100))]);
+			locationRows += hcat([box(text(" <dupLoc.location.file>") , popup(dupLoc.location), openFile(dupLoc.location)), 
+					  box(text(" <dupLoc.occurence> "),hresizable(false), width(100))]);
 		}
 		locationsGrid = grid([[vcat(locationRows)]], std(left()));
 		
-		dupGridMaxSize = size(locationRows);
+		dupGridMaxSize = 10;// size(locationRows);
 		if(dupGridMaxSize > size(dup.code))
 			dupGridMaxSize = size(dup.code);
 		dupCodeLines = "\n";
@@ -128,7 +129,7 @@ public Figure dupGrid(dupPager pager){
 		rows += hcat([dupCodeGrid,locationsGrid]);
 	}
 	dataGrid = grid([[vcat(rows)]], std(left()), vshrink(0.5));	
-	return vcat([pager.control, dataGrid],gap(1));	
+	return vcat([pager.control, dataGrid],gap(1));
 }
 
 public FProperty openFile(loc location){

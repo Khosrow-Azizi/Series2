@@ -86,8 +86,6 @@ public Figure analysisuzDetail(int totalLines, customDataType risks){
   return(space(grid([[vcat(rows2)]], std(vgap(3))), std(bottom())));
 }
 
-
-
 /* display detail for code duplication */
 public Figure analysisDupDetail(int totalLines, dupAnalysisDataType risks){
   rows2 = [];
@@ -97,9 +95,9 @@ public Figure analysisDupDetail(int totalLines, dupAnalysisDataType risks){
 	for(l <- dup.code)
 		dupCodeLines += "	<l> \n";
 	for (dupLoc <- dup.locations){	 
-	  rows1 += ([box(size(5,30), fillColor("LightGreen") , vresizable(false), popup(" File : <dupLoc.path> \n Duplicate code: <dupCodeLines>" ),
+	  rows1 += ([box(size(5,30), fillColor("LightGreen") , vresizable(false), popup(" File : <dupLoc.location.path> \n Duplicate code: <dupCodeLines>" ),
 	                 onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
-  	                   edit(dupLoc);
+  	                   edit(dupLoc.location);
                        return true;
 	                 })
 	              )]);
