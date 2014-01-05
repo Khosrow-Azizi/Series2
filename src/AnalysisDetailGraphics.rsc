@@ -56,7 +56,7 @@ public Figure analysisccDetail(int totalLines, customDataType risks){
   if (allMethods == false){
       rows2 += hcat(rows1);
   }
-  return(space(grid([[vcat(rows2)]], std(vgap(4)), std(hgap(2))), std(top()), std( left())));
+  return(space(grid([[vcat(rows2)]], std(vgap(4)), std(hgap(2))), std(bottom()), std( left())));
 }
 
 /* display detail for unit size */
@@ -83,7 +83,7 @@ public Figure analysisuzDetail(int totalLines, customDataType risks){
   if (allMethods == false){
       rows2 += hcat(rows1);
   }
-  return(space(grid([[vcat(rows2)]], std(vgap(3))), std(top())));
+  return(space(grid([[vcat(rows2)]], std(vgap(3))), std(bottom())));
 }
 
 
@@ -107,6 +107,6 @@ public Figure analysisDupDetail(int totalLines, dupAnalysisDataType risks){
 	}
 	rows2 += hcat(rows1);	
   }
-  return(space(grid([[vcat(rows2)]], std(vgap(3))), std(top())));
+  return(space(grid([[vcat(rows2)]], std(vgap(3))), std(bottom())));
 }
 
