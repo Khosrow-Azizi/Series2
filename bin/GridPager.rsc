@@ -30,8 +30,12 @@ public ccUnitPager gridPager(Analysis analysisType, customDataType analysisData,
 		selectedPage = <0, maxPageSize>;
 	}
 	
+	if(selectedPage.begin >= pageBoundary.end)
+		selectedPage.begin = pageBoundary.end - maxPageSize;
+			
 	if(selectedPage.begin < pageBoundary.begin)
 		selectedPage.begin = pageBoundary.begin;
+	
 	selectedPage.end = selectedPage.begin + maxPageSize;
 	if(selectedPage.end > pageBoundary.end)
 		selectedPage.end = pageBoundary.end;
@@ -47,7 +51,12 @@ public ccUnitPager gridPager(Analysis analysisType, customDataType analysisData,
 	buttons = [];
 	if(selectedPage.begin != pageBoundary.begin)
 		buttons += prevBtn;
-	buttons += box(text("page <toString((selectedPage.begin/maxPageSize)+1)> of <toString((pageBoundary.end/maxPageSize)+1)>"), center(),height(30), vresizable(false));
+	totalPages = 0;
+	if((pageBoundary.end % maxPageSize) == 0)
+		totalPages = pageBoundary.end / maxPageSize;
+	else
+		totalPages = (pageBoundary.end / maxPageSize) + 1;
+	buttons += box(text("page <toString((selectedPage.begin/maxPageSize)+1)> of <toString(totalPages)>"), center(),height(30), vresizable(false));
 	if(selectedPage.end != pageBoundary.end)
 		buttons += nextBtn;	
 	return <hcat(buttons), dataCollection.methods[selectedPage.begin..selectedPage.end]>;
@@ -59,8 +68,10 @@ public dupPager gridPager(Analysis analysisType, dupAnalysisDataType analysisDat
 	if(initialize){
 		pageBoundary = <0, size(dupDataCollection.duplicates)>;
 		selectedPage = <0, maxPageSize>;
-	}
+	}	
 	
+	if(selectedPage.begin >= pageBoundary.end)
+		selectedPage.begin = pageBoundary.end - maxPageSize;
 	if(selectedPage.begin < pageBoundary.begin)
 		selectedPage.begin = pageBoundary.begin;
 	selectedPage.end = selectedPage.begin + maxPageSize;
@@ -78,7 +89,12 @@ public dupPager gridPager(Analysis analysisType, dupAnalysisDataType analysisDat
 	buttons = [];
 	if(selectedPage.begin != pageBoundary.begin)
 		buttons += prevBtn;
-	buttons += box(text("page <toString((selectedPage.begin/maxPageSize)+1)> of <toString((pageBoundary.end/maxPageSize)+1)>"), center(),height(30), vresizable(false));
+	totalPages = 0;
+	if((pageBoundary.end % maxPageSize) == 0)
+		totalPages = pageBoundary.end / maxPageSize;
+	else
+		totalPages = (pageBoundary.end / maxPageSize) + 1;
+	buttons += box(text("page <toString((selectedPage.begin/maxPageSize)+1)> of <toString(totalPages)>"), center(),height(30), vresizable(false));
 	if(selectedPage.end != pageBoundary.end)
 		buttons += nextBtn;	
 	return <hcat(buttons), toSet(toList(dupDataCollection.duplicates)[selectedPage.begin..selectedPage.end])>;
@@ -125,3 +141,5 @@ public FProperty reset(bool forward, dupAnalysis(str name), int maxPageSize){
 	 	render(hcat([overview(0.9, top(), left(), true), box(dupAnalysisDetail(totalMethodLines, dupDataCollection, false))], gap(5)));
 	  	return true;});
 }
+
+private bool isEven(int number) = number%2 == 0;

@@ -10,19 +10,68 @@ import String;
 import IO;
 
 import Analysis;
+import AnalysisOverview;
 import AnalysisTypes;
+import AnalysisDetailGraphics;
 import GridPager;
 
+private customDataType dataCollection;
+private dupAnalysisDataType dupDataCollection;
+private bool graphicalView = false;
+private int totalMethodLines = 0;
+
 public Figure ccAnalysisDetail(int totalLines, customDataType risks, bool initializePager){
-	return ccGrid(gridPager(ccAnalysis("Complexity"), risks, 10, initializePager));
+	dataCollection = risks;
+	totalMethodLines = totalLines;
+	if(graphicalView)
+		return vcat([analysisccDetail(totalLines, risks), 
+				 box(text(" Switch to Textual View "), changeCcView(false), shadow(true), fillColor("lightGray"), top(), size(25), resizable(false))],gap(10));
+
+	return vcat([ccGrid(gridPager(ccAnalysis("Complexity"), risks, 10, initializePager)), 
+				 box(text(" Switch to Graphical View "), changeCcView(true), shadow(true), fillColor("lightGray"), top(), size(25), resizable(false))],gap(10));
 }
 
-public Figure unitAnalysisDetail(int totalLines, customDataType risks, bool initializePager){
-  return unitGrid(gridPager(unitAnalysis("Unit-size"), risks, 10, initializePager));
+public FProperty changeCcView(bool toGraphics){
+	return onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers){
+		graphicalView = toGraphics;
+	 	render(hcat([overview(0.9, top(), left(), true), box(ccAnalysisDetail(totalMethodLines, dataCollection, false))], gap(5)));
+	  	return true;});
 }
 
 public Figure dupAnalysisDetail(int totalLines, dupAnalysisDataType risks, bool initializePager){
-  	return dupGrid(gridPager(dupAnalysis("Duplication"), risks, 1, initializePager));
+  	dupDataCollection = risks;
+  	totalMethodLines = totalLines;
+  	if(graphicalView)
+		return vcat([analysisDupDetail(totalLines, risks), 
+				 box(text(" Switch to Textual View "), changeDupView(false), shadow(true), fillColor("lightGray"), top(), size(25), resizable(false))],gap(10));
+		
+  	return vcat([dupGrid(gridPager(dupAnalysis("Duplication"), risks, 1, initializePager)), 
+				 box(text(" Switch to Graphical View "), changeDupView(true), shadow(true), fillColor("lightGray"), top(), size(25), resizable(false))],gap(10));
+}
+
+public FProperty changeDupView(bool toGraphics){
+	return onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers){
+		graphicalView = toGraphics;
+	 	render(hcat([overview(0.9, top(), left(), true), box(dupAnalysisDetail(totalMethodLines, dupDataCollection, false))], gap(5)));
+	  	return true;});
+}
+
+public Figure unitAnalysisDetail(int totalLines, customDataType risks, bool initializePager){
+	dataCollection = risks;
+	totalMethodLines = totalLines;
+	if(graphicalView)
+		return vcat([analysisuzDetail(totalLines, risks), 
+				 box(text(" Switch to Textual View "), changeUnitView(false), shadow(true), fillColor("lightGray"), top(), size(25), resizable(false))],gap(10));
+		
+	return vcat([unitGrid(gridPager(unitAnalysis("Unit-size"), risks, 10, initializePager)), 
+				 box(text(" Switch to Graphical View "), changeUnitView(true), shadow(true), fillColor("lightGray"), top(), size(25), resizable(false))],gap(10));
+}
+
+public FProperty changeUnitView(bool toGraphics){
+	return onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers){
+		graphicalView = toGraphics;
+	 	render(hcat([overview(0.9, top(), left(), true), box(unitAnalysisDetail(totalMethodLines, dataCollection, false))], gap(5)));
+	  	return true;});
 }
 
 public Figure ccGrid(ccUnitPager pager){	
@@ -54,8 +103,7 @@ public Figure unitGrid(ccUnitPager pager){
 }
 
 public Figure dupGrid(dupPager pager){	
-	rows = [];
-	
+	rows = [];	
 	Figure dupCodeGrid;
 	Figure locationsGrid;
 	for(dup <- pager.dataCollection){
@@ -92,3 +140,4 @@ public FProperty popup(loc location){
 	return mouseOver(box(text(" Path: " + location.path + "\n" + " Click to view the source code.", fontItalic(true)), 
 		fillColor("lightGray"), grow(1.1), resizable(false)));
 }
+

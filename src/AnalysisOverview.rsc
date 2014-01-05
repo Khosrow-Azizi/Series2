@@ -13,8 +13,8 @@ import AnalysisDetailGrid;
 import IO;
 
 public void renderGraph(){	
-	startAnalysis(HelloWorldLoc);
-	//startAnalysis(smallsqlLoc);
+	//startAnalysis(HelloWorldLoc);
+	startAnalysis(smallsqlLoc);
 	initCCConfigValues(veryHighCcRisks.ratio, highCcRisks.ratio, moderateCcRisks.ratio,lowCcRisks.ratio);
 	initUzConfigValues(veryHighUzRisks.ratio, highUzRisks.ratio, moderateUzRisks.ratio,lowUzRisks.ratio);
 	initDupConfigValues(duplicate.ratio, nonDuplicate.ratio);
