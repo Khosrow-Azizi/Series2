@@ -21,9 +21,9 @@ public void renderPieGraph(){
 
 public Figure pieGraph(num shrinkRatio, FProperty position){
 	ccPie = createPie([<40.0, "Red", false>,<10.0, "yellow", false>,<15.0, "orange", false>,<5.0, "green", false>,<20.0, "pink", false>, <10.0, "gray", false>], 0.5,ccAnalysis());
-	dupPie = createPie([<20.0, "Red", false>,<20.0, "yellow", false>,<15.0, "orange", false>,<10.0, "green", false>,<35.0, "pink", false>], 0.4,dupAnalysis());
+	//dupPie = createPie([<20.0, "Red", false>,<20.0, "yellow", false>,<15.0, "orange", false>,<10.0, "green", false>,<35.0, "pink", false>], 0.4,dupAnalysis());
 	//unitPie = triGraph("Unit-size analysis", 0.05,0.30,0.50, unitAnalysis(), unitSelected);
-	return overlay([ccPie,dupPie], shrink(shrinkRatio), position);
+	return overlay([ccPie], shrink(shrinkRatio), position);
 }
 
 public Figure createPie(list[tuple[real perc, str color, bool isSelected]] recipe, num shrinkRatio, Analysis analysisType){
