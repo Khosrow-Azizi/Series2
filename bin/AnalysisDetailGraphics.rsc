@@ -43,7 +43,10 @@ public Figure analysisccDetail(int totalLines, customDataType risks){
     if (m.lofc == 0) 
       continue;
     rows1 += ([box(size(10,(m.complexity * 2)), fillColor(getColor(m.complexity)) , vresizable(false), popup(" Method name : " + m.name + "\n" + " Complexity : " + toString(m.complexity) )
-             )]);
+               ,onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
+  	                   edit(locFile);
+                       return true;})
+              )]);
     if (cnt == 6){
       allMethods = true;
       rows2 += hcat(rows1);
@@ -70,7 +73,10 @@ public Figure analysisuzDetail(int totalLines, customDataType risks){
     loc locFile = m.location;
     if (m.lofc == 0) 
       continue;
-    rows1 += ([box(size(40,m.lofc), fillColor(getColor(m.complexity)) , vresizable(false), popup(" Method name: < m.name>\n Size: <toString(m.lofc)> lines"    )
+    rows1 += ([box(size(40,m.lofc), fillColor(getColor(m.complexity)) , vresizable(false), popup(" Method name: < m.name>\n Size: <toString(m.lofc)> lines"),
+    			onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
+  	                   edit(locFile);
+                       return true;})
              )]);
     if (cnt == 6){
       allMethods = true;

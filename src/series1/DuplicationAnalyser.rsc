@@ -94,15 +94,17 @@ public int calculateDuplications(set[loc] projectMethods, int minThreshold){
 	}
 	
 	int totalDupLines = 0;
-	set[str] duplis = {};
-	for(dup <- filteredDups)	{
-		//println("(<filteredDups[dup]> : <dup>");		
-		duplis += toSet(filteredDups[dup]);
+	set[str] dupSet = {};
+	list[str] dupList = [];
+	for(dup <- filteredDups){		
+		//println("(<filteredDups[dup]> : <dup>");	
+		
+		dupSet += toSet(filteredDups[dup]);
 		//totalDupLines += (size(filteredDups[dup]) * (0| it + location.occurence | location <- dup));
 	 	foundDuplicates += <filteredDups[dup], dup>; 
 	 	//println("");		
 	 }
-	return size(duplis);
+	return size(dupSet);
 	// return totalDupLines;
 }
 
