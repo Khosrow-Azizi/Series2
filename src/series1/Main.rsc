@@ -11,11 +11,12 @@ import IO;
 
 import series1::SourceCodeFilter;
 import series1::LinesOfCodeCalculator;
-import series1::DuplicatesCalculator;
+//import series1::DuplicatesCalculator;
+import series1::DuplicationAnalyser;
 import series1::CyclomaticComplexity;
 import series1::Ranking;
 
-//public loc HelloWorldLoc = |project://HelloWorld|;
+public loc HelloWorldLoc = |project://HelloWorld|;
 public loc smallsqlLoc = |project://smallsql|; 
 public loc hsqldbLoc = |project://hsqldb231|;
 
@@ -32,16 +33,16 @@ public void reportProjectMetrics(loc project){
 	set[loc] srcFiles = getSrcFiles(model);
 	set[loc] srcMethods = getSrcMethods(srcFiles);
 		
-//	int totalLoc = calculateProjectLoc(srcFiles);	
+	int totalLoc = calculateProjectLoc(srcFiles);	
 	int totalMethodsLoc = calculateProjectLoc(srcMethods);	
-//	int totalDublications = calculateDuplications(srcMethods, 6);
+	int totalDublications = calculateDuplications(srcMethods, 6);
 	list[tuple[str name, loc location, int complexity, int lofc]] ccAnalysisResult = getComplexityPerUnit(ast, true);
 	println("Analysis <ccAnalysisResult>");
-//	println("====================================== Begin report ======================================");
-//	println("");
+	println("====================================== Begin report ======================================");
+	println("");
 	
 	// report on lines of code
-//	generateLocReport(totalLoc);
+	generateLocReport(totalLoc);
 	
 	println("");
 	println("");	
@@ -49,20 +50,20 @@ public void reportProjectMetrics(loc project){
 	// report on CC
 	generateComplexityReport(totalMethodsLoc, ccAnalysisResult);
 
-//	println("");
-//	println("");
+	println("");
+	println("");
 	
 	// unit size
-//	generateUnitSizeReport(totalMethodsLoc, ccAnalysisResult);  prajan : no need to call as the data is already there during
+	generateUnitSizeReport(totalMethodsLoc, ccAnalysisResult); // prajan : no need to call as the data is already there during
 	
-//	println("");
-//	println("");
+	println("");
+	println("");
 	
 	// report on dupplicates
-//	generateDuplicateReport(totalMethodsLoc, totalDublications);
+	generateDuplicateReport(totalMethodsLoc, totalDublications);
 	
-//	println("");
-//	println("====================================== End report ======================================");
+	println("");
+	println("====================================== End report ======================================");
 }
 
 public void generateLocReport(int totalLoc){
@@ -79,7 +80,7 @@ public void generateComplexityReport(int totalMethodsLoc, list[tuple[str name, l
 	int veryHighRiskLoc = 0;	
 	
 	for(cc <- ccAnalysisResult){
-	println("Print complexity <cc.complexity>");
+	//println("Print complexity <cc.complexity>");
 		if(cc.complexity <= 10) { lowRiskLoc += cc.lofc; continue; }
 		if(cc.complexity > 10 && cc.complexity <= 20) { modRiskLoc += cc.lofc; continue; }
 		if(cc.complexity > 20 && cc.complexity <= 50) { highRiskLoc += cc.lofc; continue; }
