@@ -37,6 +37,9 @@ public list[str] getCleanCode(loc location){
        	if (!(/^\w/ := l) && (/\/\// := l))
        	  continue;   	
 
+        if (!(/^\w/ := l) && (/\/*/ := l))
+       	  continue;
+
        	if( !(/^\w/ := l) && (/\/\*/ := l)) {
        		if(/\*\// := l) {  
        		    isInComment = false;
@@ -55,5 +58,6 @@ public list[str] getCleanCode(loc location){
        		continue;
        	cleanCode += l;
     }
+    
     return cleanCode;
  }
